@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-import { Post } from '@nestjs/common/decorators';
-import { AppService } from 'src/app.service';
+import { Body, Post } from '@nestjs/common/decorators';
 import { AuthService } from './auth.service';
+import { CreatedUserDTO } from './dto/create-user.dto';
 
 @Controller('/auth')
 export class AuthController {
@@ -11,8 +11,8 @@ export class AuthController {
     return 'All users here';
   }
 
-  @Post('/singup')
-  createUser() {
-    return this.authService.createUser();
+  @Post('/signup')
+  createUser(@Body() user: CreatedUserDTO) {
+    return this.authService.createUser(user);
   }
 }
