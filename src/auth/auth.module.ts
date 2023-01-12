@@ -6,10 +6,13 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constant';
 import { PassportModule } from '@nestjs/passport';
+import { ConfigModule } from '@nestjs/config';
+import { ApiKeyStrategy } from './api-key.strategy';
 
 @Module({
   imports: [
     PassportModule,
+    ConfigModule,
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     JwtModule.register({
       secret: jwtConstants.secret,
@@ -17,6 +20,6 @@ import { PassportModule } from '@nestjs/passport';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, ApiKeyStrategy],
 })
 export class AuthModule {}
