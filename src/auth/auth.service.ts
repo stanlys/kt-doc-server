@@ -13,10 +13,17 @@ export class AuthService {
     @InjectModel(User.name) private readonly UserModel: Model<UserDocument>,
   ) {}
 
-  async createUser(createdUser: CreatedUserDTO): Promise<User> {
+  async createUser(createdUser: CreatedUserDTO): Promise<any> {
     try {
       const user = this.UserModel.create(createdUser);
-      return user;
+      const payload = {
+        username: createdUser.username,
+        login: createdUser.login,
+      };
+      return {
+        token: this.jwtService.sign(payload),
+        user,
+      };
     } catch (e) {
       return e;
     }

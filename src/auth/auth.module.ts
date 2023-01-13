@@ -8,6 +8,8 @@ import { jwtConstants } from './constant';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule } from '@nestjs/config';
 import { ApiKeyStrategy } from './api-key.strategy';
+import { LocalStrategy } from './local.strategy';
+import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [
@@ -20,6 +22,6 @@ import { ApiKeyStrategy } from './api-key.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, ApiKeyStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

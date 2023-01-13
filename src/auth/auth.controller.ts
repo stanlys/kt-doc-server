@@ -4,6 +4,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreatedUserDTO } from './dto/create-user.dto';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { LocalAuthGuard } from './local-auth.guard';
 import { User } from './Schema/user.schema';
 
 @ApiTags('Авторизация')
@@ -23,11 +25,13 @@ export class AuthController {
     return 'All users here';
   }
 
+  @UseGuards(LocalAuthGuard)
   @Post('/signup')
   createUser(@Body() user: CreatedUserDTO) {
     return this.authService.createUser(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/signin')
   login(@Body() user: CreatedUserDTO) {
     return this.authService.login(user);
