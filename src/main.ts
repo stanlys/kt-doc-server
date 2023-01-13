@@ -12,6 +12,7 @@ async function bootstrap() {
     .setDescription('Input & Output letter')
     .setVersion('0.0.1')
     .addTag('DOC')
+    .setContact('stan', '1', 'stanlys@yandex.ru')
     .build();
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('doc', app, document);
