@@ -1,7 +1,19 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Body, Post, UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBadGatewayResponse,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { CreatedUserDTO } from './dto/create-user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -25,12 +37,19 @@ export class AuthController {
     return 'All users here';
   }
 
+  @ApiOperation({ summary: ' Register and get JWT' })
   @UseGuards(LocalAuthGuard)
   @Post('/signup')
   createUser(@Body() user: CreatedUserDTO) {
     return this.authService.createUser(user);
   }
 
+  @ApiOperation({ summary: ' Test JWT' })
+  @ApiBearerAuth('JWT')
+  @ApiUnauthorizedResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'User not found',
+  })
   @UseGuards(JwtAuthGuard)
   @Post('/signin')
   login(@Body() user: CreatedUserDTO) {

@@ -12,6 +12,15 @@ async function bootstrap() {
     .setDescription('Input & Output letter')
     .setVersion('0.0.1')
     .addTag('DOC')
+    .addBearerAuth(
+      {
+        type: 'apiKey',
+        name: 'Bearer',
+        in: 'header',
+        description: 'Enter Bearer JWT',
+      },
+      'Bearer token',
+    )
     .setContact('stan', '1', 'stanlys@yandex.ru')
     .build();
   const document = SwaggerModule.createDocument(app, configSwagger);
