@@ -1,13 +1,7 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { Body, Post, UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import {
-  ApiBadGatewayResponse,
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
