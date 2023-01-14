@@ -2,14 +2,14 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 
-export type UserDocument = HydratedDocument<Letter>;
+export type DeliveryDocument = HydratedDocument<Delivery>;
 
 @ApiTags('Организации для отправки почтовых сообщений')
 @Schema()
-export class Letter {
+export class Delivery {
   @ApiProperty({ description: 'Наименование' })
   @Prop()
-  name: string;
+  orgname: string;
 
   @ApiProperty({ description: 'Сайт для отслеживания трека' })
   @Prop()
@@ -20,4 +20,4 @@ export class Letter {
   phone: string;
 }
 
-export const LetterSchema = SchemaFactory.createForClass(Letter);
+export const DeliverySchema = SchemaFactory.createForClass(Delivery);
