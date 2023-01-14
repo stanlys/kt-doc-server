@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('OOO NPP KT Document Server')
     .setDescription('Input & Output letter')
     .setVersion('0.0.1')
-    .addTag('DOC')
+    .addTag('Документация')
     .addBearerAuth(
       {
         type: 'apiKey',
