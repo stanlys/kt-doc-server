@@ -3,10 +3,13 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config/dist';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
+import * as csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
+
   const configSwagger = new DocumentBuilder()
     .setTitle('OOO NPP KT Document Server')
     .setDescription('Input & Output letter')
@@ -26,6 +29,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('doc', app, document);
 
+  app.use(helmet());
+  app.use(csurf());
   app.useGlobalPipes(new ValidationPipe());
   const port = configService.get('PORT');
   console.log(`SERVER RUN PORT:${port}`);
