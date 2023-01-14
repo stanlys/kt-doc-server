@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config/dist';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import path from 'path';
+import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './Auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 import { LetterModule } from './letter/letter.module';
+import { DeliryOrganizationModule } from './deliry-organization/deliry-organization.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LetterModule } from './letter/letter.module';
     ),
     AuthModule,
     LetterModule,
+    DeliryOrganizationModule,
   ],
   controllers: [AppController],
   providers: [AppService],
