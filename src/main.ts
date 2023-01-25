@@ -30,7 +30,7 @@ async function bootstrap() {
   SwaggerModule.setup('doc', app, document);
 
   app.use(helmet());
-  // app.use(csurf());
+  app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   const port = configService.get('PORT');
   console.log(`SERVER RUN PORT:${port}`);

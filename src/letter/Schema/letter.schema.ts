@@ -33,7 +33,7 @@ export class Letter {
 
   @ApiProperty({ description: 'Служба доставки' })
   @Prop()
-  deliveryService: string;
+  postman: string;
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
   @Prop()
