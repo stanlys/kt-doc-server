@@ -21,6 +21,8 @@ export class LetterController {
   @ApiOperation({ summary: ' Создание записи о почтовом отправлении' })
   @Post()
   create(@Body() createLetterDto: CreateLetterDto) {
+    //console.log('-> POST <-');
+    //return 'POST' + JSON.stringify(createLetterDto);
     return this.letterService.create(createLetterDto);
   }
 

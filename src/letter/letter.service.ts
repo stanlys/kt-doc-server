@@ -18,18 +18,22 @@ export class LetterService {
   }
 
   findAll() {
-    return `This action returns all letter`;
+    const postLetters = this.LetterModel.find();
+    return postLetters;
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} letter`;
+    const postLetter = this.LetterModel.findById(id);
+    return postLetter;
   }
 
   update(id: string, updateLetterDto: UpdateLetterDto) {
-    return `This action updates a #${id} letter`;
+    const postLetter = this.LetterModel.findByIdAndUpdate(id, updateLetterDto);
+    return postLetter;
   }
 
   remove(id: string) {
-    return `This action removes a #${id} letter`;
+    const postLetter = this.LetterModel.findByIdAndDelete(id);
+    return postLetter;
   }
 }
