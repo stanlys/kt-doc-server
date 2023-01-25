@@ -1,23 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Date } from 'mongoose';
 
 export class CreateLetterDto {
   @ApiProperty({ description: 'Отправитель ФИО' })
-  fromFIO: string;
+  sender: string;
 
   @ApiProperty({ description: 'Получатель ФИО' })
-  toFIO: string;
+  receiver: string;
 
-  @ApiProperty({ description: 'Организация получатель' })
-  organization: string;
+  @ApiProperty({ description: 'Дата отправки' })
+  date: Date;
 
   @ApiProperty({ description: 'Адрес доставки' })
   address: string;
+
+  @ApiProperty({ description: 'Тип отправления' })
+  letterType: string;
 
   @ApiProperty({ description: 'Трек номер' })
   trackNumber: string;
 
   @ApiProperty({ description: 'Служба доставки' })
-  deliveryService: string;
+  postman: string;
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
   appendFile?: string;

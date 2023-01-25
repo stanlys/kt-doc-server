@@ -37,21 +37,21 @@ export class LetterController {
     return `search ${myQuery}`;
   }
 
-  @ApiOperation({ summary: ' Получить потвое отправление по id' })
+  @ApiOperation({ summary: ' Получить почтовое отправление по id' })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.letterService.findOne(+id);
+    return this.letterService.findOne(id);
   }
 
   @ApiOperation({ summary: 'Обновить почтовое отпавление по id' })
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLetterDto: UpdateLetterDto) {
-    return this.letterService.update(+id, updateLetterDto);
+    return this.letterService.update(id, updateLetterDto);
   }
 
   @ApiOperation({ summary: ' Удалить почтовое отправление ' })
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.letterService.remove(+id);
+    return this.letterService.remove(id);
   }
 }

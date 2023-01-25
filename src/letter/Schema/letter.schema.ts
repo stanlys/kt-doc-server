@@ -2,22 +2,22 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 
-export type UserDocument = HydratedDocument<Letter>;
+export type LetterDocument = HydratedDocument<Letter>;
 
 @ApiTags('Модель почтовоего отправления')
 @Schema()
 export class Letter {
   @ApiProperty({ description: 'Отправитель ФИО' })
   @Prop()
-  fromFIO: string;
+  sender: string;
 
   @ApiProperty({ description: 'Получатель ФИО' })
   @Prop()
-  toFIO: string;
+  receiver: string;
 
-  @ApiProperty({ description: 'Организация получатель' })
+  @ApiProperty({ description: 'Дата отправки' })
   @Prop()
-  organization: string;
+  date: Date;
 
   @ApiProperty({ description: 'Адрес доставки' })
   @Prop()
@@ -26,6 +26,10 @@ export class Letter {
   @ApiProperty({ description: 'Трек номер' })
   @Prop()
   trackNumber: string;
+
+  @ApiProperty({ description: 'Тип отправления' })
+  @Prop()
+  letterType: string;
 
   @ApiProperty({ description: 'Служба доставки' })
   @Prop()
