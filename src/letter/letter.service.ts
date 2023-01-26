@@ -18,7 +18,7 @@ export class LetterService {
   }
 
   findAll() {
-    const postLetters = this.LetterModel.find();
+    const postLetters = this.LetterModel.find().sort({ _id: -1 });
     return postLetters;
   }
 
