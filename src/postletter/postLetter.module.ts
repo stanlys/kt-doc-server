@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { PostLetterService } from './postLetter.service';
-import { PostLetterController } from './letter.controller';
+import { PostLetterController } from './postletter.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostLetter, LetterSchema } from './Schema/letter.schema';
+import { PostLetter, LetterSchema } from './Schema/postletter.schema';
 
 @Module({
   imports: [

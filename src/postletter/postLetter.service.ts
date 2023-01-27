@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePostLetterDto } from './dto/create-letter.dto';
 import { UpdatePostLetterDto } from './dto/update-letter.dto';
-import { PostLetter, PostLetterDocument } from './Schema/letter.schema';
+import { PostLetter, PostLetterDocument } from './Schema/postletter.schema';
 
 @Injectable()
 export class PostLetterService {

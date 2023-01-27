@@ -8,6 +8,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { PostLetterModule } from './postletter/postLetter.module';
 import { DeliryOrganizationModule } from './deliry-organization/deliry-organization.module';
+import { OutletterModule } from './outletter/outletter.module';
+import { InletterModule } from './inletter/inletter.module';
 
 @Module({
   imports: [
@@ -21,12 +23,14 @@ import { DeliryOrganizationModule } from './deliry-organization/deliry-organizat
     AuthModule,
     PostLetterModule,
     DeliryOrganizationModule,
+    OutletterModule,
+    InletterModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
 
-//mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2
+//OUT mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2
 
-// mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority'
+//KT  mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority'
