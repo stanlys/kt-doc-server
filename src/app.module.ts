@@ -6,7 +6,7 @@ import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { LetterModule } from './letter/letter.module';
+import { PostLetterModule } from './postletter/postLetter.module';
 import { DeliryOrganizationModule } from './deliry-organization/deliry-organization.module';
 
 @Module({
@@ -16,10 +16,10 @@ import { DeliryOrganizationModule } from './deliry-organization/deliry-organizat
       rootPath: path.resolve(__dirname, 'static/letter'),
     }),
     MongooseModule.forRoot(
-      'mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority',
+      'mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2',
     ),
     AuthModule,
-    LetterModule,
+    PostLetterModule,
     DeliryOrganizationModule,
   ],
   controllers: [AppController],
@@ -28,3 +28,5 @@ import { DeliryOrganizationModule } from './deliry-organization/deliry-organizat
 export class AppModule {}
 
 //mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2
+
+// mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority'

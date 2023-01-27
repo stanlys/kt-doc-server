@@ -2,11 +2,11 @@ import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 
-export type LetterDocument = HydratedDocument<Letter>;
+export type PostLetterDocument = HydratedDocument<PostLetter>;
 
 @ApiTags('Модель почтовоего отправления')
 @Schema()
-export class Letter {
+export class PostLetter {
   @ApiProperty({ description: 'Отправитель ФИО' })
   @Prop()
   sender: string;
@@ -40,4 +40,4 @@ export class Letter {
   appendFile?: string;
 }
 
-export const LetterSchema = SchemaFactory.createForClass(Letter);
+export const LetterSchema = SchemaFactory.createForClass(PostLetter);

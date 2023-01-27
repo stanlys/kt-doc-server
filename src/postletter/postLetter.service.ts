@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateLetterDto } from './dto/create-letter.dto';
-import { UpdateLetterDto } from './dto/update-letter.dto';
-import { Letter, LetterDocument } from './Schema/letter.schema';
+import { CreatePostLetterDto } from './dto/create-letter.dto';
+import { UpdatePostLetterDto } from './dto/update-letter.dto';
+import { PostLetter, PostLetterDocument } from './Schema/letter.schema';
 
 @Injectable()
-export class LetterService {
+export class PostLetterService {
   constructor(
-    @InjectModel(Letter.name)
-    private readonly LetterModel: Model<LetterDocument>,
+    @InjectModel(PostLetter.name)
+    private readonly LetterModel: Model<PostLetterDocument>,
   ) {}
 
-  create(createLetterDto: CreateLetterDto) {
+  create(createLetterDto: CreatePostLetterDto) {
     const postLetter = this.LetterModel.create(createLetterDto);
     return postLetter;
   }
@@ -27,7 +27,7 @@ export class LetterService {
     return postLetter;
   }
 
-  update(id: string, updateLetterDto: UpdateLetterDto) {
+  update(id: string, updateLetterDto: UpdatePostLetterDto) {
     const postLetter = this.LetterModel.findByIdAndUpdate(id, updateLetterDto);
     return postLetter;
   }

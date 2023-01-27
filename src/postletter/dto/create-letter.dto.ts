@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { Date } from 'mongoose';
 
-export class CreateLetterDto {
+export class CreatePostLetterDto {
   @ApiProperty({ description: 'Отправитель ФИО' })
   @IsNotEmpty()
   sender: string;

@@ -8,19 +8,19 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { LetterService } from './letter.service';
-import { CreateLetterDto } from './dto/create-letter.dto';
-import { UpdateLetterDto } from './dto/update-letter.dto';
+import { PostLetterService } from './postLetter.service';
+import { CreatePostLetterDto } from './dto/create-letter.dto';
+import { UpdatePostLetterDto } from './dto/update-letter.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Работа с почтовыми отправлениями')
 @Controller('letter')
-export class LetterController {
-  constructor(private readonly letterService: LetterService) {}
+export class PostLetterController {
+  constructor(private readonly letterService: PostLetterService) {}
 
   @ApiOperation({ summary: ' Создание записи о почтовом отправлении' })
   @Post()
-  create(@Body() createLetterDto: CreateLetterDto) {
+  create(@Body() createLetterDto: CreatePostLetterDto) {
     //console.log('-> POST <-');
     //return 'POST' + JSON.stringify(createLetterDto);
     return this.letterService.create(createLetterDto);
@@ -47,7 +47,10 @@ export class LetterController {
 
   @ApiOperation({ summary: 'Обновить почтовое отпавление по id' })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLetterDto: UpdateLetterDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateLetterDto: UpdatePostLetterDto,
+  ) {
     return this.letterService.update(id, updateLetterDto);
   }
 
