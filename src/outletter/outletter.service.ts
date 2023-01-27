@@ -1,26 +1,66 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import * as dayjs from 'dayjs';
+
+import { Model } from 'mongoose';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
+import { OutLetterDocument } from './schema/outletter.schema';
+import { OutLetter } from './schema/outletter.schema';
 
 @Injectable()
 export class OutletterService {
-  create(createOutletterDto: CreateOutletterDto) {
-    return 'This action adds a new outletter';
+  constructor(
+    @InjectModel(OutLetter.name)
+    private readonly outLetter: Model<OutLetterDocument>,
+  ) {}
+
+  async getPreFix() {
+    const startdate = dayjs().startOf('year').toISOString();
+    const enddate = dayjs().endOf('year').toISOString();
+    const filter = {
+      date: {
+        $gte: startdate,
+        $lt: enddate,
+      },
+    };
+    const letters = await this.outLetter.find({ filter }).count({});
+    return letters;
   }
 
-  findAll() {
-    return `This action returns all outletter`;
+  async create(createOutletterDto: CreateOutletterDto) {
+    const today = dayjs().toISOString();
+    const postFix = dayjs().format('YY');
+    const count = await this.getPreFix();
+    const createLetter = {
+      ...createOutletterDto,
+      outNumber: `${count}/${postFix}`,
+      date: today,
+    };
+    const letter = this.outLetter.create(createLetter);
+    return letter;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} outletter`;
+  async findAll() {
+    const letters = await this.outLetter.find().sort({ _id: -1 });
+    return letters;
   }
 
-  update(id: number, updateOutletterDto: UpdateOutletterDto) {
-    return `This action updates a #${id} outletter`;
+  async findOne(id: number) {
+    const letter = await this.outLetter.findById(id);
+    return letter;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} outletter`;
+  async update(id: number, updateOutletterDto: UpdateOutletterDto) {
+    const letter = await this.outLetter.findByIdAndUpdate(
+      id,
+      updateOutletterDto,
+    );
+    return letter;
+  }
+
+  async remove(id: number) {
+    const letter = await this.outLetter.findByIdAndDelete(id);
+    return letter;
   }
 }
