@@ -31,12 +31,15 @@ export class OutletterService {
   async create(createOutletterDto: CreateOutletterDto) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
+
     const count = await this.getPreFix();
+
     const createLetter = {
       ...createOutletterDto,
       outNumber: `${count}/${postFix}`,
       date: today,
     };
+
     const letter = this.outLetter.create(createLetter);
     return letter;
   }

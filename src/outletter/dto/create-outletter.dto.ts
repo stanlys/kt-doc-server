@@ -10,10 +10,6 @@ export class CreateOutletterDto {
   @IsNotEmpty()
   receiver: string;
 
-  // @ApiProperty({ description: 'Дата отправки' })
-  // @IsNotEmpty()
-  // date: Date;
-
   @ApiProperty({ description: 'Адрес доставки' })
   @IsNotEmpty()
   address: string;
@@ -21,10 +17,6 @@ export class CreateOutletterDto {
   @ApiProperty({ description: 'Тип отправления' })
   @IsNotEmpty()
   letterType: string;
-
-  // @ApiProperty({ description: 'Трек номер' })
-  // @IsNotEmpty()
-  // outNumber: string;
 
   @ApiProperty({ description: 'Описание' })
   description: string;

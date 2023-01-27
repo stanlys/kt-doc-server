@@ -4,23 +4,23 @@ import { UpdateInletterDto } from './dto/update-inletter.dto';
 
 @Injectable()
 export class InletterService {
-  create(createInletterDto: CreateInletterDto) {
+  async create(createInletterDto: CreateInletterDto) {
     return 'This action adds a new inletter';
   }
 
-  findAll() {
+  async findAll() {
     return `This action returns all inletter`;
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return `This action returns a #${id} inletter`;
   }
 
-  update(id: number, updateInletterDto: UpdateInletterDto) {
+  async update(id: number, updateInletterDto: UpdateInletterDto) {
     return `This action updates a #${id} inletter`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} inletter`;
   }
 }

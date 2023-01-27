@@ -4,6 +4,6 @@ import { InletterController } from './inletter.controller';
 
 @Module({
   controllers: [InletterController],
-  providers: [InletterService]
+  providers: [InletterService],
 })
 export class InletterModule {}
