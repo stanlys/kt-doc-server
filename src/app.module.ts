@@ -10,6 +10,7 @@ import { PostLetterModule } from './postletter/postLetter.module';
 import { DeliryOrganizationModule } from './deliry-organization/deliry-organization.module';
 import { OutletterModule } from './outletter/outletter.module';
 import { InletterModule } from './inletter/inletter.module';
+import { FileloaderModule } from './fileloader/fileloader.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { InletterModule } from './inletter/inletter.module';
     DeliryOrganizationModule,
     OutletterModule,
     InletterModule,
+    FileloaderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
