@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs';
-
 import { Model } from 'mongoose';
+import { FilesService } from 'src/files/files.service';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { OutLetterDocument } from './schema/outletter.schema';
@@ -13,6 +13,7 @@ export class OutletterService {
   constructor(
     @InjectModel(OutLetter.name)
     private readonly outLetter: Model<OutLetterDocument>,
+    private fileService: FilesService,
   ) {}
 
   async getPreFix() {
