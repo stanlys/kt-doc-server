@@ -13,18 +13,27 @@ import { InletterModule } from './inletter/inletter.module';
 import { FileloaderModule } from './fileloader/fileloader.module';
 import { FilesModule } from './files/files.module';
 
+const ENV = process.env.NODE_ENV;
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.local.env', '.env'],
+      envFilePath: [ENV === 'IP' ? '.env' : '.local.env'],
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static/letter'),
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('DB_CONNECT'),
+      }),
+      inject: [ConfigService],
+    }),
+    // MongooseModule.forRoot(
+    //   'mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority',
+    // ),
     AuthModule,
     PostLetterModule,
     DeliryOrganizationModule,
