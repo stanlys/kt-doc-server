@@ -11,6 +11,7 @@ import { DeliryOrganizationModule } from './deliry-organization/deliry-organizat
 import { OutletterModule } from './outletter/outletter.module';
 import { InletterModule } from './inletter/inletter.module';
 import { FileloaderModule } from './fileloader/fileloader.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { FileloaderModule } from './fileloader/fileloader.module';
     DeliryOrganizationModule,
     OutletterModule,
     InletterModule,
+    FilesModule,
     FileloaderModule,
   ],
   controllers: [AppController],

@@ -14,6 +14,6 @@ import { FilesModule } from 'src/files/files.module';
     ]),
   ],
   controllers: [OutletterController],
-  providers: [OutletterService, { provide: 'MomentWrapper', useValue: moment }],
+  providers: [OutletterService],
 })
 export class OutletterModule {}

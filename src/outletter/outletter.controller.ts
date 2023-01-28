@@ -11,11 +11,15 @@ import { OutletterService } from './outletter.service';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { FilesService } from 'src/files/files.service';
 
 @ApiTags('Работа с исходящими письмами')
 @Controller('outletter')
 export class OutletterController {
-  constructor(private readonly outletterService: OutletterService) {}
+  constructor(
+    private readonly outletterService: OutletterService,
+    private readonly fileUpload: FilesService,
+  ) {}
 
   @Post()
   create(@Body() createOutletterDto: CreateOutletterDto) {
