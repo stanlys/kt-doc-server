@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ExpressLoader } from '@nestjs/serve-static';
 import * as dayjs from 'dayjs';
 import { Model } from 'mongoose';
 import { FilesService } from 'src/files/files.service';
@@ -7,6 +8,7 @@ import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { OutLetterDocument } from './schema/outletter.schema';
 import { OutLetter } from './schema/outletter.schema';
+import { FileType } from 'src/files/files.service';
 
 @Injectable()
 export class OutletterService {
@@ -29,12 +31,15 @@ export class OutletterService {
     return letters;
   }
 
-  async create(createOutletterDto: CreateOutletterDto) {
+  async create(
+    createOutletterDto: CreateOutletterDto,
+    file: Express.Multer.File,
+  ) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
 
     const count = await this.getPreFix();
-
+    this.fileService.createFile(FileType.IMAGE, file);
     const createLetter = {
       ...createOutletterDto,
       outNumber: `${count}/${postFix}`,
