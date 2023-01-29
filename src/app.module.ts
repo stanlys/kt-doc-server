@@ -12,6 +12,7 @@ import { OutletterModule } from './outletter/outletter.module';
 import { InletterModule } from './inletter/inletter.module';
 import { FileloaderModule } from './fileloader/fileloader.module';
 import { FilesModule } from './files/files.module';
+import { RoleModule } from './role/role.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -38,6 +39,7 @@ const ENV = process.env.NODE_ENV;
     InletterModule,
     FilesModule,
     FileloaderModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

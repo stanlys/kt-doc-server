@@ -8,6 +8,7 @@ import { ensureDir, writeFile, remove } from 'fs-extra';
 export class FileloaderService {
   async saveFile(
     letterNumber: string,
+    type
     file: Express.Multer.File,
   ): Promise<FileElementResponse> {
     const dateFolder = dayjs().format('YYYY');
