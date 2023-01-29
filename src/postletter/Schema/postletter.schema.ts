@@ -1,17 +1,18 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { HydratedDocument } from 'mongoose';
+import dayjs from 'dayjs';
+import { HydratedDocument, now } from 'mongoose';
 
 export type PostLetterDocument = HydratedDocument<PostLetter>;
 
-@ApiTags('Модель почтовоего отправления')
+@ApiTags('Модель почтового отправления')
 @Schema()
 export class PostLetter {
-  @ApiProperty({ description: 'Отправитель ФИО' })
+  @ApiProperty({ example: 'Иванов И.И.', description: 'Отправитель ФИО' })
   @Prop()
   sender: string;
 
-  @ApiProperty({ description: 'Получатель ФИО' })
+  @ApiProperty({ example: 'Иванов И.И.', description: 'Получатель ФИО' })
   @Prop()
   receiver: string;
 
@@ -19,19 +20,22 @@ export class PostLetter {
   @Prop()
   date: Date;
 
-  @ApiProperty({ description: 'Адрес доставки' })
+  @ApiProperty({
+    example: 'г. Воронеж, ул. Пролетарская 87В',
+    description: 'Адрес доставки',
+  })
   @Prop()
   address: string;
 
-  @ApiProperty({ description: 'Трек номер' })
+  @ApiProperty({ example: 'RU123456789', description: 'Трек номер' })
   @Prop()
   trackNumber: string;
 
-  @ApiProperty({ description: 'Тип отправления' })
+  @ApiProperty({ example: 'Письмо', description: 'Тип отправления' })
   @Prop()
   letterType: string;
 
-  @ApiProperty({ description: 'Служба доставки' })
+  @ApiProperty({ example: 'Почта РФ', description: 'Служба доставки' })
   @Prop()
   postman: string;
 

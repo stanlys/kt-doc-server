@@ -31,9 +31,6 @@ const ENV = process.env.NODE_ENV;
       }),
       inject: [ConfigService],
     }),
-    // MongooseModule.forRoot(
-    //   'mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority',
-    // ),
     AuthModule,
     PostLetterModule,
     DeliryOrganizationModule,
@@ -46,7 +43,3 @@ const ENV = process.env.NODE_ENV;
   providers: [AppService],
 })
 export class AppModule {}
-
-//KT mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2
-
-//OUT  mongodb+srv://user:useruser@cluster0.zmdfs1v.mongodb.net/?retryWrites=true&w=majority'

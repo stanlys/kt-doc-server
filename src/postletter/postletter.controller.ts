@@ -11,7 +11,8 @@ import {
 import { PostLetterService } from './postLetter.service';
 import { CreatePostLetterDto } from './dto/create-letter.dto';
 import { UpdatePostLetterDto } from './dto/update-letter.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PostLetter } from './Schema/postletter.schema';
 
 @ApiTags('Работа с почтовыми отправлениями')
 @Controller('letter')
@@ -19,6 +20,7 @@ export class PostLetterController {
   constructor(private readonly letterService: PostLetterService) {}
 
   @ApiOperation({ summary: ' Создание записи о почтовом отправлении' })
+  @ApiResponse({ status: 200, type: PostLetter })
   @Post()
   create(@Body() createLetterDto: CreatePostLetterDto) {
     //console.log('-> POST <-');
@@ -27,12 +29,16 @@ export class PostLetterController {
   }
 
   @ApiOperation({ summary: ' Получить все почтовые отправление' })
+  @ApiResponse({
+    status: 200,
+    type: [PostLetter],
+  })
   @Get()
   findAll() {
     return this.letterService.findAll();
   }
 
-  @ApiOperation({ summary: 'Поиск почтовых отправлени' })
+  @ApiOperation({ summary: 'Поиск почтовых отправлений' })
   @Get('search')
   search(@Query() q: string) {
     const myQuery = JSON.stringify(q);
