@@ -27,7 +27,7 @@ export class OutletterService {
         $lt: enddate,
       },
     };
-    const letters = await this.outLetter.find({ filter }).count({});
+    const letters = (await this.outLetter.find({ filter }).count({})) + 1;
     return letters;
   }
 
@@ -37,9 +37,9 @@ export class OutletterService {
   ) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
-
     const count = await this.getPreFix();
-    this.fileService.createFile(FileType.IMAGE, file);
+    const fileName = `${count}-${postFix}`;
+    this.fileService.createFile(FileType.OUT, fileName, file);
     const createLetter = {
       ...createOutletterDto,
       outNumber: `${count}/${postFix}`,
