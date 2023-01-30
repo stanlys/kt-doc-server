@@ -23,8 +23,6 @@ export class PostLetterController {
   @ApiResponse({ status: 200, type: PostLetter })
   @Post()
   create(@Body() createLetterDto: CreatePostLetterDto) {
-    //console.log('-> POST <-');
-    //return 'POST' + JSON.stringify(createLetterDto);
     return this.letterService.create(createLetterDto);
   }
 
@@ -43,6 +41,12 @@ export class PostLetterController {
   search(@Query() q: string) {
     const myQuery = JSON.stringify(q);
     return `search ${myQuery}`;
+  }
+
+  @ApiOperation({ summary: 'Выгрузить весь список в CSV' })
+  @Get('save')
+  saveToCSV() {
+    return this.letterService.save();
   }
 
   @ApiOperation({ summary: ' Получить почтовое отправление по id' })

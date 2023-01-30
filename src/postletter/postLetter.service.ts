@@ -17,8 +17,13 @@ export class PostLetterService {
     return postLetter;
   }
 
+  async save() {
+    const postLetter = await this.LetterModel.find({});
+    return postLetter;
+  }
+
   findAll() {
-    const postLetters = this.LetterModel.find().sort({ _id: -1 });
+    const postLetters = this.LetterModel.find().sort({ _id: -1 }).limit(200);
     return postLetters;
   }
 
