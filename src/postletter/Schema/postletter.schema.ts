@@ -35,6 +35,13 @@ export class PostLetter {
   @Prop()
   letterType: string;
 
+  @ApiProperty({
+    example: 'Что-то в конверте',
+    description: 'Содержимое пакета',
+  })
+  @Prop()
+  letterDescription: string;
+
   @ApiProperty({ example: 'Почта РФ', description: 'Служба доставки' })
   @Prop()
   postman: string;

@@ -23,6 +23,10 @@ export class CreatePostLetterDto {
   @IsNotEmpty()
   letterType: string;
 
+  @ApiProperty({ description: 'Краткое описание отправления' })
+  @IsNotEmpty()
+  letterDescription: string;
+
   @ApiProperty({ description: 'Трек номер' })
   @IsNotEmpty()
   trackNumber: string;
