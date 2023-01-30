@@ -13,8 +13,30 @@ import { InletterModule } from './inletter/inletter.module';
 import { FileloaderModule } from './fileloader/fileloader.module';
 import { FilesModule } from './files/files.module';
 import { RoleModule } from './role/role.module';
+import { AdminModule } from '@adminjs/nestjs';
+import AdminJS from 'adminjs';
+import * as AdminJSMongoose from '@adminjs/mongoose';
+import { Category } from './category.entity';
+import { PostLetter } from './postletter/Schema/postletter.schema';
 
 const ENV = process.env.NODE_ENV;
+
+const DEFAULT_ADMIN = {
+  email: 'admin@yandex.ru',
+  password: '123456789',
+};
+
+AdminJS.registerAdapter({
+  Resource: AdminJSMongoose.Resource,
+  Database: AdminJSMongoose.Database,
+});
+
+const authenticate = async (email: string, password: string) => {
+  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
+    return Promise.resolve(DEFAULT_ADMIN);
+  }
+  return null;
+};
 
 @Module({
   imports: [
@@ -31,6 +53,24 @@ const ENV = process.env.NODE_ENV;
         uri: configService.get<string>('DB_CONNECT'),
       }),
       inject: [ConfigService],
+    }),
+    AdminModule.createAdminAsync({
+      useFactory: () => ({
+        adminJsOptions: {
+          rootPath: '/admin',
+          resources: [Category],
+        },
+        auth: {
+          authenticate,
+          cookieName: 'adminJS',
+          cookiePassword: 'secret',
+        },
+        sessionOptions: {
+          resave: true,
+          saveUninitialized: true,
+          secret: 'secret',
+        },
+      }),
     }),
     AuthModule,
     PostLetterModule,
