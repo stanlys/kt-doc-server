@@ -23,4 +23,25 @@ export class CreateOutletterDto {
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
   appendFile?: string;
+
+  @ApiProperty({ description: 'Дата' })
+  date: number;
+
+  @ApiProperty({ description: 'Исходящий номер' })
+  outNumber: string;
+
+  @ApiProperty({ description: 'Входящий номер' })
+  inNumber: string;
+
+  @ApiProperty({ description: 'Дата доставки' })
+  dateOrder: string;
+
+  @ApiProperty({ description: 'Исполнитель' })
+  executor: string;
+
+  @ApiProperty({ description: 'Краткое содержание письма' })
+  letterTitle: string;
+
+  @ApiProperty({ description: 'Ответ на письмо с входящим номером' })
+  ResponseToIncoming: string;
 }

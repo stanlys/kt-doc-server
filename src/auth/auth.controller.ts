@@ -23,7 +23,7 @@ export class AuthController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'All users here',
-    type: Array<User>,
+    type: [User],
   })
   @Get('/users')
   @UseGuards(AuthGuard('api-key'))
