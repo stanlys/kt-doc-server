@@ -47,7 +47,7 @@ export class OutletterController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.outletterService.findOne(+id);
+    return this.outletterService.findOne(id);
   }
 
   @Patch(':id')
@@ -55,11 +55,11 @@ export class OutletterController {
     @Param('id') id: string,
     @Body() updateOutletterDto: UpdateOutletterDto,
   ) {
-    return this.outletterService.update(+id, updateOutletterDto);
+    return this.outletterService.update(id, updateOutletterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.outletterService.remove(+id);
+    return this.outletterService.remove(id);
   }
 }

@@ -55,12 +55,12 @@ export class OutletterService {
     return letters;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const letter = await this.outLetter.findById(id);
     return letter;
   }
 
-  async update(id: number, updateOutletterDto: UpdateOutletterDto) {
+  async update(id: string, updateOutletterDto: UpdateOutletterDto) {
     const letter = await this.outLetter.findByIdAndUpdate(
       id,
       updateOutletterDto,
@@ -68,7 +68,7 @@ export class OutletterService {
     return letter;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const letter = await this.outLetter.findByIdAndDelete(id);
     return letter;
   }
