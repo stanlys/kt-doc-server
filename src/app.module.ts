@@ -14,8 +14,8 @@ import { FileloaderModule } from './fileloader/fileloader.module';
 import { FilesModule } from './files/files.module';
 import { RoleModule } from './role/role.module';
 import { AdminModule } from '@adminjs/nestjs';
-import AdminJS from 'adminjs';
 import * as AdminJSMongoose from '@adminjs/mongoose';
+import AdminJS from 'adminjs';
 import { Category } from './category.entity';
 import { PostLetter } from './postletter/Schema/postletter.schema';
 
@@ -54,6 +54,39 @@ const authenticate = async (email: string, password: string) => {
       }),
       inject: [ConfigService],
     }),
+    AuthModule,
+    PostLetterModule,
+    DeliryOrganizationModule,
+    OutletterModule,
+    InletterModule,
+    FilesModule,
+    FileloaderModule,
+    RoleModule,
+    AdminModule.createAdminAsync({
+      useFactory: () => ({
+        adminJsOptions: {
+          rootPath: '/admin',
+          resources: [Category],
+        },
+        auth: {
+          authenticate,
+          cookieName: 'adminjs',
+          cookiePassword: 'secret',
+        },
+        sessionOptions: {
+          resave: true,
+          saveUninitialized: true,
+          secret: 'secret',
+        },
+      }),
+    }),
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+
+/*
     AdminModule.createAdminAsync({
       useFactory: () => ({
         adminJsOptions: {
@@ -72,16 +105,4 @@ const authenticate = async (email: string, password: string) => {
         },
       }),
     }),
-    AuthModule,
-    PostLetterModule,
-    DeliryOrganizationModule,
-    OutletterModule,
-    InletterModule,
-    FilesModule,
-    FileloaderModule,
-    RoleModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
-})
-export class AppModule {}
+*/
