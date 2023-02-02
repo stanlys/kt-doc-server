@@ -30,7 +30,7 @@ async function bootstrap() {
 
   app.use(helmet());
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe());
+  // app.useGlobalPipes(new ValidationPipe());
   const port = configService.get('PORT');
   console.log(`SERVER RUN PORT:${port}`);
   await app.listen(port);

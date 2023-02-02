@@ -31,15 +31,12 @@ export class OutletterService {
     return letters;
   }
 
-  async create(
-    createOutletterDto: CreateOutletterDto,
-    file: Express.Multer.File,
-  ) {
+  async create(createOutletterDto: CreateOutletterDto) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
     const count = await this.getPreFix();
-    const fileName = `${count}-${postFix}`;
-    this.fileService.createFile(FileType.OUT, fileName, file);
+    // const fileName = `${count}-${postFix}`;
+    // this.fileService.createFile(FileType.OUT, fileName, file);
     const createLetter = {
       ...createOutletterDto,
       outNumber: `${count}/${postFix}`,
@@ -49,6 +46,25 @@ export class OutletterService {
     const letter = this.outLetter.create(createLetter);
     return letter;
   }
+
+  // async create(
+  //   createOutletterDto: CreateOutletterDto,
+  //   file: Express.Multer.File,
+  // ) {
+  //   const today = dayjs().toISOString();
+  //   const postFix = dayjs().format('YY');
+  //   const count = await this.getPreFix();
+  //   const fileName = `${count}-${postFix}`;
+  //   this.fileService.createFile(FileType.OUT, fileName, file);
+  //   const createLetter = {
+  //     ...createOutletterDto,
+  //     outNumber: `${count}/${postFix}`,
+  //     date: today,
+  //   };
+
+  //   const letter = this.outLetter.create(createLetter);
+  //   return letter;
+  // }
 
   async findAll() {
     const letters = await this.outLetter.find().sort({ _id: -1 });

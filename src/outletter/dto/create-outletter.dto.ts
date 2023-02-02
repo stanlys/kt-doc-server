@@ -11,11 +11,9 @@ export class CreateOutletterDto {
   receiver: string;
 
   @ApiProperty({ description: 'Адрес доставки' })
-  @IsNotEmpty()
   address: string;
 
   @ApiProperty({ description: 'Тип отправления' })
-  @IsNotEmpty()
   letterType: string;
 
   @ApiProperty({ description: 'Описание' })
@@ -25,7 +23,7 @@ export class CreateOutletterDto {
   appendFile?: string;
 
   @ApiProperty({ description: 'Дата' })
-  date: number;
+  date: Date;
 
   @ApiProperty({ description: 'Исходящий номер' })
   outNumber: string;
@@ -37,6 +35,7 @@ export class CreateOutletterDto {
   dateOrder: string;
 
   @ApiProperty({ description: 'Исполнитель' })
+  @IsNotEmpty()
   executor: string;
 
   @ApiProperty({ description: 'Краткое содержание письма' })

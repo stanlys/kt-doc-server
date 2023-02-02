@@ -43,7 +43,7 @@ export class OutLetter {
   @Prop()
   inNumber: string;
 
-  @ApiProperty({ description: 'Входящий номер' })
+  @ApiProperty({ description: 'Дата получения' })
   @Prop()
   dateOrder: string;
 
