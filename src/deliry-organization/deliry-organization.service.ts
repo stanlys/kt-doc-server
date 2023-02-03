@@ -24,16 +24,16 @@ export class DeliryOrganizationService {
     return postmans;
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const postman = await this.DeliveryModel.findById(id);
     return postman;
   }
 
-  update(id: number, updateDeliryOrganizationDto: UpdateDeliryOrganizationDto) {
+  update(id: string, updateDeliryOrganizationDto: UpdateDeliryOrganizationDto) {
     return `This action updates a #${id} deliryOrganization`;
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const postman = this.DeliveryModel.findByIdAndRemove(id);
     return postman;
   }

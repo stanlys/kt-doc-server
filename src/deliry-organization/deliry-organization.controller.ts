@@ -31,7 +31,7 @@ export class DeliryOrganizationController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.deliryOrganizationService.findOne(+id);
+    return this.deliryOrganizationService.findOne(id);
   }
 
   @Patch(':id')
@@ -40,7 +40,7 @@ export class DeliryOrganizationController {
     @Body() updateDeliryOrganizationDto: UpdateDeliryOrganizationDto,
   ) {
     return this.deliryOrganizationService.update(
-      +id,
+      id,
       updateDeliryOrganizationDto,
     );
   }
