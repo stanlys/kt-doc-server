@@ -47,6 +47,6 @@ export class DeliryOrganizationController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.deliryOrganizationService.remove(+id);
+    return this.deliryOrganizationService.remove(id);
   }
 }
