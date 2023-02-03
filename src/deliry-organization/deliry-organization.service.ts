@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateDeliryOrganizationDto } from './dto/create-deliry-organization.dto';
 import { UpdateDeliryOrganizationDto } from './dto/update-deliry-organization.dto';
+import { Delivery, DeliveryDocument } from './schema/deliry.schema';
 
 @Injectable()
 export class DeliryOrganizationService {
-  create(createDeliryOrganizationDto: CreateDeliryOrganizationDto) {
-    return 'This action adds a new deliryOrganization';
+  constructor(
+    @InjectModel(Delivery.name)
+    private readonly DeliveryModel: Model<DeliveryDocument>,
+  ) {}
+
+  async create(createDeliryOrganizationDto: CreateDeliryOrganizationDto) {
+    const postman = await this.DeliveryModel.create(
+      createDeliryOrganizationDto,
+    );
+    return postman;
   }
 
-  findAll() {
-    return `This action returns all deliryOrganization`;
+  async findAll() {
+    const postmans = await this.DeliveryModel.find();
+    return postmans;
   }
 
   findOne(id: number) {
@@ -21,6 +33,7 @@ export class DeliryOrganizationService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} deliryOrganization`;
+    const postman = this.DeliveryModel.findByIdAndDelete(id);
+    return postman;
   }
 }

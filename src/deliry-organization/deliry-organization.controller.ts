@@ -13,7 +13,7 @@ import { CreateDeliryOrganizationDto } from './dto/create-deliry-organization.dt
 import { UpdateDeliryOrganizationDto } from './dto/update-deliry-organization.dto';
 
 @ApiTags('Почтовые организации')
-@Controller('deliry')
+@Controller('delivery')
 export class DeliryOrganizationController {
   constructor(
     private readonly deliryOrganizationService: DeliryOrganizationService,
