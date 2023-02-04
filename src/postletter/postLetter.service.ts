@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import {
+  Delivery,
+  DeliveryDocument,
+} from 'src/deliry-organization/schema/deliry.schema';
 import { CreatePostLetterDto } from './dto/create-letter.dto';
 import { UpdatePostLetterDto } from './dto/update-letter.dto';
 import { PostLetter, PostLetterDocument } from './Schema/postletter.schema';
@@ -10,10 +14,23 @@ export class PostLetterService {
   constructor(
     @InjectModel(PostLetter.name)
     private readonly LetterModel: Model<PostLetterDocument>,
+    @InjectModel(Delivery.name)
+    private readonly DeliveryModel: Model<DeliveryDocument>,
   ) {}
 
-  create(createLetterDto: CreatePostLetterDto) {
-    const postLetter = this.LetterModel.create(createLetterDto);
+  async create(createLetterDto: CreatePostLetterDto) {
+    const { postman, ...otherProps } = createLetterDto;
+    const organization = await this.DeliveryModel.findById(postman);
+    const letter = {
+      ...otherProps,
+      postman: organization._id,
+    };
+    console.log('<-', letter);
+    const postLetter = await this.LetterModel.create(letter);
+    postLetter.postman = { ...organization };
+    postLetter.save();
+    //postLetter.postman = organization._id;
+    console.log('->', postLetter);
     return postLetter;
   }
 
@@ -22,8 +39,11 @@ export class PostLetterService {
     return postLetter;
   }
 
-  findAll() {
-    const postLetters = this.LetterModel.find().sort({ _id: -1 }).limit(200);
+  async findAll() {
+    const postLetters = await this.LetterModel.find()
+      .populate('postman')
+      .sort({ _id: -1 });
+    console.log(postLetters);
     return postLetters;
   }
 

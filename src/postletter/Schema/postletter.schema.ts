@@ -1,7 +1,11 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import dayjs from 'dayjs';
-import { HydratedDocument, now } from 'mongoose';
+import mongoose, { HydratedDocument, now, ObjectId } from 'mongoose';
+import {
+  Delivery,
+  DeliverySchema,
+} from 'src/deliry-organization/schema/deliry.schema';
 
 export type PostLetterDocument = HydratedDocument<PostLetter>;
 
@@ -43,8 +47,8 @@ export class PostLetter {
   letterDescription: string;
 
   @ApiProperty({ example: 'Почта РФ', description: 'Служба доставки' })
-  @Prop()
-  postman: string;
+  @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Delivery' } })
+  postman: Delivery;
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
   @Prop()

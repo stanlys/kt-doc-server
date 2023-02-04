@@ -33,7 +33,7 @@ export class CreatePostLetterDto {
 
   @ApiProperty({ description: 'Служба доставки' })
   @IsNotEmpty()
-  postman: string;
+  readonly postman;
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
   appendFile?: string;
