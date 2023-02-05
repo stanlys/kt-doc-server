@@ -43,4 +43,7 @@ export class CreateOutletterDto {
 
   @ApiProperty({ description: 'Ответ на письмо с входящим номером' })
   ResponseToIncoming: string;
+
+  @ApiProperty({ description: 'Файл' })
+  file: any;
 }

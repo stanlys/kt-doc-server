@@ -24,20 +24,20 @@ export class OutletterController {
     private readonly fileUpload: FilesService,
   ) {}
 
-  // @Post()
-  // @UseInterceptors(FileInterceptor('file'))
-  // create(
-  //   @Body() createOutletterDto: CreateOutletterDto,
-  //   @UploadedFile() file: Express.Multer.File,
-  // ) {
-  //   return this.outletterService.create(createOutletterDto, file);
-  // }
-
   @Post()
-  create(@Body() createOutletterDto: CreateOutletterDto) {
-    console.log('----', createOutletterDto);
-    return this.outletterService.create(createOutletterDto);
+  @UseInterceptors(FileInterceptor('file'))
+  create(
+    @Body() createOutletterDto: CreateOutletterDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.outletterService.create(createOutletterDto, file);
   }
+
+  // @Post()
+  // create(@Body() createOutletterDto: CreateOutletterDto) {
+  //   console.log('----', createOutletterDto);
+  //   return this.outletterService.create(createOutletterDto);
+  // }
 
   @Post('1')
   @UseInterceptors(FileInterceptor('file'))
