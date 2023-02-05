@@ -25,12 +25,9 @@ export class PostLetterService {
       ...otherProps,
       postman: organization._id,
     };
-    console.log('<-', letter);
     const postLetter = await this.LetterModel.create(letter);
     postLetter.postman = { ...organization };
     postLetter.save();
-    //postLetter.postman = organization._id;
-    console.log('->', postLetter);
     return postLetter;
   }
 

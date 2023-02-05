@@ -47,7 +47,7 @@ export class PostLetter {
   letterDescription: string;
 
   @ApiProperty({ example: 'Почта РФ', description: 'Служба доставки' })
-  @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Delivery' } })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Delivery' })
   postman: Delivery;
 
   @ApiProperty({ description: 'Скан трек номера (при необходимости)' })
