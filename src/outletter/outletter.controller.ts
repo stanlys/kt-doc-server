@@ -30,6 +30,7 @@ export class OutletterController {
     @Body() createOutletterDto: CreateOutletterDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    console.log('---->');
     return this.outletterService.create(createOutletterDto, file);
   }
 

@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as uuid from 'uuid';
 
 export enum FileType {
   IN = 'in',
@@ -17,14 +16,16 @@ export enum FileType {
 export class FilesService {
   createFile(type: FileType, fileName: string, file): string {
     try {
-      const fileExtention = file.originalname.split('.').pop();
-      const fullFileName = fileName + '.' + fileExtention;
+      console.log(fileName);
+      //const fileExtention = fileName.split('.').pop();
+      //const fullFileName = fileName + '.' + fileExtention;
       const filePath = path.resolve(__dirname, '..', 'static', type);
       if (!fs.existsSync(filePath)) {
         fs.mkdirSync(filePath, { recursive: true });
       }
-      fs.writeFileSync(path.resolve(filePath, fullFileName), file.buffer);
-      return type + '/' + fullFileName;
+      fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
+      console.log(type + '/' + fileName);
+      return type + '/' + fileName;
     } catch (e) {
       throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -51,17 +51,18 @@ export class OutletterService {
     createOutletterDto: CreateOutletterDto,
     file: Express.Multer.File,
   ) {
+    const ext = file.originalname.split('.').pop();
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
     const count = await this.getPreFix();
-    const fileName = `${count}-${postFix}`;
+    const fileName = `${count}-${postFix}.${ext}`;
     this.fileService.createFile(FileType.OUT, fileName, file);
     const createLetter = {
       ...createOutletterDto,
       outNumber: `${count}/${postFix}`,
       date: today,
     };
-
+    console.log(createLetter);
     const letter = this.outLetter.create(createLetter);
     return letter;
   }
