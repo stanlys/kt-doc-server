@@ -47,6 +47,7 @@
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.3",
     "fs-extra": "^11.1.0",
+    "garmin-connect": "^1.4.5",
     "helmet": "^6.0.1",
     "moment": "^2.29.4",
     "mongoose": "^6.8.3",
