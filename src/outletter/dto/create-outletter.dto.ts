@@ -46,4 +46,7 @@ export class CreateOutletterDto {
 
   @ApiProperty({ description: 'Файл' })
   file: any;
+
+  @ApiProperty({ description: 'Приложение' })
+  fileAppendix?: any;
 }

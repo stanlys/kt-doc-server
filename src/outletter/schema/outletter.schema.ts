@@ -39,6 +39,10 @@ export class OutLetter {
   @Prop()
   appendFile?: string;
 
+  @ApiProperty({ description: 'Скан документа' })
+  @Prop()
+  appendFileAppendix?: string;
+
   @ApiProperty({ description: 'Входящий номер' })
   @Prop()
   inNumber: string;

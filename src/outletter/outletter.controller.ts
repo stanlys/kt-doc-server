@@ -15,7 +15,6 @@ import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FilesService } from 'src/files/files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { GarminConnect } from 'garmin-connect';
 
 @ApiTags('Работа с исходящими письмами')
 @Controller('outletter')
@@ -26,12 +25,17 @@ export class OutletterController {
   ) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('file'), FileInterceptor('fileAppendix'))
   create(
     @Body() createOutletterDto: CreateOutletterDto,
     @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() fileAppendix: Express.Multer.File,
   ) {
-    console.log('---->');
+    if (fileAppendix) {
+      console.log('yes');
+    } else {
+      console.log('not');
+    }
     return this.outletterService.create(createOutletterDto, file);
   }
 
@@ -51,22 +55,6 @@ export class OutletterController {
   @Get()
   findAll() {
     return this.outletterService.findAll();
-  }
-
-  @Get('/garmin')
-  getGarmin() {
-    const garmin = async () => {
-      const garmin = new GarminConnect({
-        username: 'marinehaustova@yandex.ru',
-        password: 'Kobila85',
-      });
-      await garmin.login('marinehaustova@yandex.ru', 'Kobila85');
-      const activites = await garmin.getActivities(0, 10);
-
-      return activites;
-    };
-
-    return garmin();
   }
 
   @Get(':id')

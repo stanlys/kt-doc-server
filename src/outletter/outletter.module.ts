@@ -3,7 +3,7 @@ import { OutletterService } from './outletter.service';
 import { OutletterController } from './outletter.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OutLetter, OutLetterSchema } from './schema/outletter.schema';
-import moment from 'moment';
+
 import { FilesModule } from 'src/files/files.module';
 
 @Module({
