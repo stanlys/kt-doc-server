@@ -5,16 +5,14 @@ import { path } from 'app-root-path';
 import { ensureDir, writeFile, remove } from 'fs-extra';
 
 @Injectable()
-export class FileloaderService {
-  async saveFile(
-    letterNumber: string,
-    file: Express.Multer.File,
-  ): Promise<FileElementResponse> {
+export class FileLoaderService {
+  async saveFile(file: Express.Multer.File): Promise<FileElementResponse> {
     const dateFolder = dayjs().format('YYYY');
+    const fileName = dayjs().format('YYYY-MM-DD-HHmmss');
     const uploadFolder = `${path}/uploads/${dateFolder}`;
     await ensureDir(uploadFolder);
     const ext = file.originalname.split('.').pop();
-    const shortFileName = `${letterNumber}.${ext}`;
+    const shortFileName = `${fileName}.${ext}`;
     const filename = `${uploadFolder}/${shortFileName}`;
     await writeFile(filename, file.buffer);
     const res: FileElementResponse = {

@@ -2,33 +2,31 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   Post,
   UploadedFile,
-  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
-import { FileElementResponse } from './dto/fileResponse';
-import { FileloaderService } from './fileloader.service';
+import { FileLoaderService } from './fileloader.service';
 
 @ApiTags('загрузка файлов')
 @Controller('upload')
 export class FileloaderController {
-  constructor(private readonly filesService: FileloaderService) {}
+  constructor(private readonly filesService: FileLoaderService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return this.filesService.saveFile('11', file);
+    console.log('loading....');
+    return this.filesService.saveFile(file);
   }
 
   @Post('1')
   @UseInterceptors(FileInterceptor('file'))
   upload(@UploadedFile() file: Express.Multer.File) {
     console.log(file.originalname);
-    return this.filesService.saveFile('11', file);
+    return this.filesService.saveFile(file);
   }
 
   @Delete('11')

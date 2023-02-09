@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { FileloaderController } from './fileloader.controller';
-import { FileloaderService } from './fileloader.service';
+import { FileLoaderService } from './fileloader.service';
 
 @Module({
   controllers: [FileloaderController],
-  providers: [FileloaderService],
+  providers: [FileLoaderService],
 })
 export class FileloaderModule {}
