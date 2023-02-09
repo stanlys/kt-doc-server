@@ -1,12 +1,21 @@
-import { HttpStatus, Injectable, Post } from '@nestjs/common';
-import { FileElementResponse } from './dto/fileResponse';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { FileUploadDTO } from './dto/create-fileLoader.dto';
 import * as dayjs from 'dayjs';
 import { path } from 'app-root-path';
 import { ensureDir, writeFile, remove } from 'fs-extra';
+import { InjectModel } from '@nestjs/mongoose';
+import { FileLoader, FileLoaderDocument } from './schema/fileloader.schema';
+import { Model } from 'mongoose';
+import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 
 @Injectable()
 export class FileLoaderService {
-  async saveFile(file: Express.Multer.File): Promise<FileElementResponse> {
+  constructor(
+    @InjectModel(FileLoader.name)
+    private readonly FileLoader: Model<FileLoaderDocument>,
+  ) {}
+
+  async saveFile(file: Express.Multer.File): Promise<UpdateFileUploadDTO> {
     const dateFolder = dayjs().format('YYYY');
     const fileName = dayjs().format('YYYY-MM-DD-HHmmss');
     const uploadFolder = `${path}/uploads/${dateFolder}`;
@@ -15,11 +24,13 @@ export class FileLoaderService {
     const shortFileName = `${fileName}.${ext}`;
     const filename = `${uploadFolder}/${shortFileName}`;
     await writeFile(filename, file.buffer);
-    const res: FileElementResponse = {
-      url: filename,
-      name: shortFileName,
+    const createdDocument: FileUploadDTO = {
+      fileName: shortFileName,
+      path: uploadFolder,
+      dateTime: dayjs().toString(),
     };
-    return res;
+    const document = await this.FileLoader.create(createdDocument);
+    return document;
   }
 
   async deleteFile(filePath: string) {
