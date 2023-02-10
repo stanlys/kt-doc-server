@@ -17,7 +17,11 @@ export class FileLoader {
 
   @ApiProperty({ description: 'Дата и время сохранения' })
   @Prop()
-  dateTime: string;
+  dateTime: Date;
+
+  @ApiProperty({ description: 'Размер файла' })
+  @Prop()
+  size: number;
 }
 
 export const FileLoaderSchema = SchemaFactory.createForClass(FileLoader);

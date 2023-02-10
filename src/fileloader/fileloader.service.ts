@@ -20,16 +20,17 @@ export class FileLoaderService {
     const dateFolder = dayjs().format('YYYY');
     const fileName = dayjs().format('YYYY-MM-DD-HHmmss');
     const uploadFolder = path.resolve(__dirname, '..', 'static', dateFolder);
-    // const uploadFolder = `${path}/uploads/${dateFolder}`;
     await ensureDir(uploadFolder);
     const ext = file.originalname.split('.').pop();
+    const fileSize = file.size;
     const shortFileName = `${fileName}.${ext}`;
     const filename = `${uploadFolder}/${shortFileName}`;
     await writeFile(filename, file.buffer);
     const createdDocument: FileUploadDTO = {
       fileName: shortFileName,
       path: `${dateFolder}/${shortFileName}`,
-      dateTime: dayjs().toString(),
+      dateTime: dayjs().toDate(),
+      size: fileSize,
     };
     const document = await this.FileLoader.create(createdDocument);
     return document;
@@ -44,5 +45,14 @@ export class FileLoaderService {
     }
 
     return 'delete';
+  }
+
+  async getAllFilesByDate(date: string): Promise<Array<UpdateFileUploadDTO>> {
+    console.log(date);
+    const documents = await this.FileLoader.find({}).where({
+      dateTime: { $gte: dayjs(date).toDate() },
+    });
+    console.log();
+    return documents;
   }
 }

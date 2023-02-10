@@ -1,5 +1,9 @@
+import { Dayjs } from 'dayjs';
+import { Date } from 'mongoose';
+
 export class FileUploadDTO {
   fileName: string;
   path: string;
-  dateTime: string;
+  readonly dateTime;
+  size: number;
 }

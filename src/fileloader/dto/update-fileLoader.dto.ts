@@ -1,8 +1,10 @@
 import { ObjectId, Types } from 'mongoose';
+import { FileUploadDTO } from './create-fileLoader.dto';
 
-export class UpdateFileUploadDTO {
+export class UpdateFileUploadDTO extends FileUploadDTO {
   _id: Types.ObjectId;
-  fileName: string;
-  path: string;
-  dateTime: string;
+  // fileName: string;
+  // path: string;
+  // dateTime: string;
+  // size: number;
 }

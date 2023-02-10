@@ -2,12 +2,16 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
+  Query,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 import { FileLoaderService } from './fileloader.service';
 
 @ApiTags('загрузка файлов')
@@ -37,7 +41,7 @@ export class FileloaderController {
   }
 
   @Get()
-  test() {
-    return 'work!';
+  getAllFileByDate(@Query('date') date: string) {
+    return this.filesService.getAllFilesByDate(date);
   }
 }
