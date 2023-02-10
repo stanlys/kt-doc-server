@@ -45,7 +45,7 @@ const authenticate = async (email: string, password: string) => {
       isGlobal: true,
     }),
     ServeStaticModule.forRoot({
-      rootPath: path.resolve(__dirname, 'static/letter'),
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
