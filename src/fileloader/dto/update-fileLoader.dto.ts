@@ -1,4 +1,4 @@
-import { ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { FileUploadDTO } from './create-fileLoader.dto';
 
 export class UpdateFileUploadDTO extends FileUploadDTO {

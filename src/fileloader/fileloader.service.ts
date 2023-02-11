@@ -47,12 +47,23 @@ export class FileLoaderService {
     return 'delete';
   }
 
+  async getAllFiles(): Promise<Array<UpdateFileUploadDTO>> {
+    console.log('get all');
+    const documents = await this.FileLoader.find();
+    return documents;
+  }
+
   async getAllFilesByDate(date: string): Promise<Array<UpdateFileUploadDTO>> {
     console.log(date);
     const documents = await this.FileLoader.find({}).where({
       dateTime: { $gte: dayjs(date).toDate() },
     });
-    console.log();
+    console.log(dayjs(date).toDate());
     return documents;
+  }
+
+  async deleteAll() {
+    await this.FileLoader.deleteMany({});
+    return 'OK';
   }
 }

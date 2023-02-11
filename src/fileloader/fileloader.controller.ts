@@ -41,7 +41,17 @@ export class FileloaderController {
   }
 
   @Get()
+  getAllDocuments() {
+    return this.filesService.getAllFiles();
+  }
+
+  @Get('date')
   getAllFileByDate(@Query('date') date: string) {
     return this.filesService.getAllFilesByDate(date);
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.filesService.deleteAll();
   }
 }
