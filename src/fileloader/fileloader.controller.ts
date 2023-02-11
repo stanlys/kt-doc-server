@@ -5,12 +5,12 @@ import {
   Param,
   Post,
   Query,
-  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 import { FileLoaderService } from './fileloader.service';
 
@@ -33,25 +33,35 @@ export class FileloaderController {
     return this.filesService.saveFile(file);
   }
 
-  @Delete('11')
-  deleteFile() {
-    return this.filesService.deleteFile(
-      '/Users/stan/Documents/Projects/kt-docs/kt-doc-server/uploads/2023/11.pdf',
-    );
+  // @Delete(':id')
+  // remove(@Param('id') id: string) {
+  //   console.log('delete by Id');
+  //   return this.filesService.deleteById(id);
+  // }
+
+  @Get(':id')
+  getting(@Param('id') id: string) {
+    return console.log(id);
   }
+
+  // @Get('date')
+  // getAllFileByDate(@Query('date') date: string) {
+  //   return this.filesService.getAllFilesByDate(date);
+  // }
 
   @Get()
   getAllDocuments() {
     return this.filesService.getAllFiles();
   }
-
-  @Get('date')
-  getAllFileByDate(@Query('date') date: string) {
-    return this.filesService.getAllFilesByDate(date);
+  @Delete(':id')
+  remove1(@Param('id') id: string) {
+    console.log('delete-', id);
+    return this.filesService.deleteById(id);
   }
 
-  @Delete()
-  deleteAll() {
-    return this.filesService.deleteAll();
-  }
+  // @Delete()
+  // deleteAll() {
+  //   console.log('delete all');
+  //   return this.filesService.deleteAll();
+  // }
 }

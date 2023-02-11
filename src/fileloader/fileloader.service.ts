@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import { ensureDir, writeFile, remove } from 'fs-extra';
 import { InjectModel } from '@nestjs/mongoose';
 import { FileLoader, FileLoaderDocument } from './schema/fileloader.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class FileLoaderService {
     private readonly FileLoader: Model<FileLoaderDocument>,
   ) {}
 
-  async saveFile(file: Express.Multer.File): Promise<UpdateFileUploadDTO> {
+  async saveFile(file: Express.Multer.File) {
     const dateFolder = dayjs().format('YYYY');
     const fileName = dayjs().format('YYYY-MM-DD-HHmmss');
     const uploadFolder = path.resolve(__dirname, '..', 'static', dateFolder);
@@ -47,19 +47,25 @@ export class FileLoaderService {
     return 'delete';
   }
 
-  async getAllFiles(): Promise<Array<UpdateFileUploadDTO>> {
+  async getAllFiles() {
     console.log('get all');
     const documents = await this.FileLoader.find();
     return documents;
   }
 
-  async getAllFilesByDate(date: string): Promise<Array<UpdateFileUploadDTO>> {
+  async getAllFilesByDate(date: string) {
     console.log(date);
     const documents = await this.FileLoader.find({}).where({
       dateTime: { $gte: dayjs(date).toDate() },
     });
     console.log(dayjs(date).toDate());
     return documents;
+  }
+
+  async deleteById(id: string) {
+    console.log('->', id);
+    const document = await this.FileLoader.findByIdAndDelete(id);
+    return document;
   }
 
   async deleteAll() {
