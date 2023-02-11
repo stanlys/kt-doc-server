@@ -5,15 +5,15 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { ensureDir, writeFile, remove } from 'fs-extra';
 import { InjectModel } from '@nestjs/mongoose';
-import { FileLoader, FileLoaderDocument } from './schema/fileloader.schema';
-import { Model, ObjectId, Types } from 'mongoose';
+import { FileUploader, FileUploaderDocument } from './schema/fileloader.schema';
+import { Model } from 'mongoose';
 import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 
 @Injectable()
 export class FileLoaderService {
   constructor(
-    @InjectModel(FileLoader.name)
-    private readonly FileLoader: Model<FileLoaderDocument>,
+    @InjectModel(FileUploader.name)
+    private readonly FileLoader: Model<FileUploaderDocument>,
   ) {}
 
   async saveFile(file: Express.Multer.File) {
@@ -48,13 +48,11 @@ export class FileLoaderService {
   }
 
   async getAllFiles() {
-    console.log('get all');
     const documents = await this.FileLoader.find();
     return documents;
   }
 
   async getAllFilesByDate(date: string) {
-    console.log(date);
     const documents = await this.FileLoader.find({}).where({
       dateTime: { $gte: dayjs(date).toDate() },
     });
@@ -63,7 +61,6 @@ export class FileLoaderService {
   }
 
   async deleteById(id: string) {
-    console.log('->', id);
     const document = await this.FileLoader.findByIdAndDelete(id);
     return document;
   }

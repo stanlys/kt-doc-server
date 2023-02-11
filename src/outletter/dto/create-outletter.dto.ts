@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
+import { UpdateFileUploadDTO } from 'src/fileloader/dto/update-fileLoader.dto';
+import { FileUploaderDocument } from 'src/fileloader/schema/fileloader.schema';
 
 export class CreateOutletterDto {
   @ApiProperty({ description: 'Отправитель ФИО' })
@@ -45,8 +47,5 @@ export class CreateOutletterDto {
   ResponseToIncoming: string;
 
   @ApiProperty({ description: 'Файл' })
-  file: any;
-
-  @ApiProperty({ description: 'Приложение' })
-  fileAppendix?: any;
+  files: FileUploaderDocument[];
 }

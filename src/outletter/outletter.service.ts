@@ -1,21 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ExpressLoader } from '@nestjs/serve-static';
 import * as dayjs from 'dayjs';
 import { Model } from 'mongoose';
-import { FilesService } from 'src/files/files.service';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { OutLetterDocument } from './schema/outletter.schema';
 import { OutLetter } from './schema/outletter.schema';
-import { FileType } from 'src/files/files.service';
+import {
+  FileUploader,
+  FileUploaderDocument,
+} from 'src/fileloader/schema/fileloader.schema';
 
 @Injectable()
 export class OutletterService {
   constructor(
     @InjectModel(OutLetter.name)
     private readonly outLetter: Model<OutLetterDocument>,
-    private fileService: FilesService,
+    @InjectModel(FileUploader.name)
+    private readonly fileUploader: Model<FileUploaderDocument>,
   ) {}
 
   async getPreFix() {
@@ -47,20 +49,22 @@ export class OutletterService {
   //   return letter;
   // }
 
-  async create(
-    createOutletterDto: CreateOutletterDto,
-    file: Express.Multer.File,
-  ) {
-    const ext = file.originalname.split('.').pop();
+  async create(createOutletterDto: CreateOutletterDto) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
     const count = await this.getPreFix();
-    const fileName = `${count}-${postFix}.${ext}`;
-    this.fileService.createFile(FileType.OUT, fileName, file);
-    const createLetter = {
-      ...createOutletterDto,
+    const { files, ...otherProps } = createOutletterDto;
+    const documents: Array<FileUploaderDocument> = [];
+    files.forEach(async (document) => {
+      const doc = await this.fileUploader.findById(document._id);
+      documents.push(doc);
+    });
+
+    const createLetter: CreateOutletterDto = {
+      ...otherProps,
+      files: documents,
       outNumber: `${count}/${postFix}`,
-      date: today,
+      date: dayjs(today).toDate(),
     };
     console.log(createLetter);
     const letter = this.outLetter.create(createLetter);

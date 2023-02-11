@@ -13,30 +13,16 @@ import { OutletterService } from './outletter.service';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { ApiTags } from '@nestjs/swagger';
-import { FilesService } from 'src/files/files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 @ApiTags('Работа с исходящими письмами')
 @Controller('outletter')
 export class OutletterController {
-  constructor(
-    private readonly outletterService: OutletterService,
-    private readonly fileUpload: FilesService,
-  ) {}
+  constructor(private readonly outletterService: OutletterService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'), FileInterceptor('fileAppendix'))
-  create(
-    @Body() createOutletterDto: CreateOutletterDto,
-    @UploadedFile() file: Express.Multer.File,
-    @UploadedFile() fileAppendix: Express.Multer.File,
-  ) {
-    if (fileAppendix) {
-      console.log('yes');
-    } else {
-      console.log('not');
-    }
-    return this.outletterService.create(createOutletterDto, file);
+  create(@Body() createOutletterDto: CreateOutletterDto) {
+    return this.outletterService.create(createOutletterDto);
   }
 
   // @Post()

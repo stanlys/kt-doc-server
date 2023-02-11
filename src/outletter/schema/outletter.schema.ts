@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
+import { FileUploader } from 'src/fileloader/schema/fileloader.schema';
 
 export type OutLetterDocument = HydratedDocument<OutLetter>;
 
@@ -36,12 +37,10 @@ export class OutLetter {
   description: string;
 
   @ApiProperty({ description: 'Скан документа' })
-  @Prop()
-  appendFile?: string;
-
-  @ApiProperty({ description: 'Скан документа' })
-  @Prop()
-  appendFileAppendix?: string;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FileUploader' }],
+  })
+  appendixFiles: FileUploader[];
 
   @ApiProperty({ description: 'Входящий номер' })
   @Prop()

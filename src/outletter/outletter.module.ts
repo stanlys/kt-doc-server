@@ -3,14 +3,18 @@ import { OutletterService } from './outletter.service';
 import { OutletterController } from './outletter.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OutLetter, OutLetterSchema } from './schema/outletter.schema';
-
-import { FilesModule } from 'src/files/files.module';
+import {
+  FileUploader,
+  FileUploaderSchema,
+} from 'src/fileloader/schema/fileloader.schema';
 
 @Module({
   imports: [
-    FilesModule,
     MongooseModule.forFeature([
       { name: OutLetter.name, schema: OutLetterSchema },
+    ]),
+    MongooseModule.forFeature([
+      { name: FileUploader.name, schema: FileUploaderSchema },
     ]),
   ],
   controllers: [OutletterController],

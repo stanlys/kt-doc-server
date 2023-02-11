@@ -2,11 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { HydratedDocument } from 'mongoose';
 
-export type FileLoaderDocument = HydratedDocument<FileLoader>;
+export type FileUploaderDocument = HydratedDocument<FileUploader>;
 
 @ApiTags('Исходящие письма')
 @Schema()
-export class FileLoader {
+export class FileUploader {
   @ApiProperty({ description: 'Имя файла' })
   @Prop()
   fileName: string;
@@ -24,4 +24,4 @@ export class FileLoader {
   size: number;
 }
 
-export const FileLoaderSchema = SchemaFactory.createForClass(FileLoader);
+export const FileUploaderSchema = SchemaFactory.createForClass(FileUploader);

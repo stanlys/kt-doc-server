@@ -1,6 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { ObjectId } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import { CreateOutletterDto } from './create-outletter.dto';
 
 export class UpdateOutletterDto extends PartialType(CreateOutletterDto) {
@@ -14,5 +14,5 @@ export class UpdateOutletterDto extends PartialType(CreateOutletterDto) {
 
   @ApiProperty({ description: 'ID' })
   @IsNotEmpty()
-  _id: ObjectId;
+  readonly _id;
 }

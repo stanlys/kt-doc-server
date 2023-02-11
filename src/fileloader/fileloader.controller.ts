@@ -11,7 +11,6 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
-import { UpdateFileUploadDTO } from './dto/update-fileLoader.dto';
 import { FileLoaderService } from './fileloader.service';
 
 @ApiTags('загрузка файлов')
@@ -44,10 +43,10 @@ export class FileloaderController {
     return console.log(id);
   }
 
-  // @Get('date')
-  // getAllFileByDate(@Query('date') date: string) {
-  //   return this.filesService.getAllFilesByDate(date);
-  // }
+  @Get('date')
+  getAllFileByDate(@Query('date') date: string) {
+    return this.filesService.getAllFilesByDate(date);
+  }
 
   @Get()
   getAllDocuments() {
