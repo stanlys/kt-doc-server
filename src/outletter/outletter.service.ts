@@ -56,23 +56,29 @@ export class OutletterService {
     const { files, ...otherProps } = createOutletterDto;
     const documents: Array<FileUploaderDocument> = [];
     files.forEach(async (document) => {
-      const doc = await this.fileUploader.findById(document._id);
+      console.log(document._id);
+      const doc = await this.fileUploader.findById(document._id).exec();
       documents.push(doc);
     });
-
-    const createLetter: CreateOutletterDto = {
-      ...otherProps,
-      files: documents,
-      outNumber: `${count}/${postFix}`,
-      date: dayjs(today).toDate(),
-    };
-    console.log(createLetter);
-    const letter = this.outLetter.create(createLetter);
-    return letter;
+    console.log(documents);
+    // const createLetter: CreateOutletterDto = {
+    //   ...otherProps,
+    //   files: documents,
+    //   outNumber: `${count}/${postFix}`,
+    //   date: dayjs(today).toDate(),
+    // };
+    // console.log(createLetter);
+    // const letter = this.outLetter.create(createLetter);
+    // console.log(letter);
+    // return letter;
+    return 'OK';
   }
 
   async findAll() {
-    const letters = await this.outLetter.find().sort({ _id: -1 });
+    const letters = await this.outLetter
+      .find({})
+      .populate('files')
+      .sort({ _id: -1 });
     return letters;
   }
 

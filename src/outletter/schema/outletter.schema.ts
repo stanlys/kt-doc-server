@@ -40,7 +40,7 @@ export class OutLetter {
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'FileUploader' }],
   })
-  appendixFiles: FileUploader[];
+  files: FileUploader[];
 
   @ApiProperty({ description: 'Входящий номер' })
   @Prop()
