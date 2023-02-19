@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { OutLetterDocument } from './schema/outletter.schema';
@@ -57,10 +57,12 @@ export class OutletterService {
     const documents: Array<FileUploaderDocument> = [];
     files.forEach(async (document) => {
       console.log(document._id);
+      console.log(isValidObjectId(document._id));
       const doc = await this.fileUploader.findById(document._id).exec();
+      console.log(doc);
       documents.push(doc);
     });
-    console.log(documents);
+    console.log('aaa - ', documents);
     // const createLetter: CreateOutletterDto = {
     //   ...otherProps,
     //   files: documents,
