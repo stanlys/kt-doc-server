@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs';
-import { isValidObjectId, Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { OutLetterDocument } from './schema/outletter.schema';
@@ -64,7 +64,7 @@ export class OutletterService {
     const count = await this.getPreFix();
     console.log(createOutletterDto);
     const documents = await this.getDocumentsArray(createOutletterDto);
-    // const { files, ...otherProps } = createOutletterDto;
+    const { files, ...otherProps } = createOutletterDto;
     // const documents: Array<FileUploaderDocument> = [];
     // files.forEach(async (document) => {
     //   console.log(document._id);
@@ -74,18 +74,18 @@ export class OutletterService {
     //   documents.push(doc);
     // });
     // documents.forEach(d=> d.)
-    console.log('aaa - ', documents);
-    // const createLetter: CreateOutletterDto = {
-    //   ...otherProps,
-    //   files: documents,
-    //   outNumber: `${count}/${postFix}`,
-    //   date: dayjs(today).toDate(),
-    // };
-    // console.log(createLetter);
-    // const letter = this.outLetter.create(createLetter);
-    // console.log(letter);
-    // return letter;
-    return 'OK';
+
+    const createLetter: CreateOutletterDto = {
+      ...otherProps,
+      files: documents,
+      outNumber: `${count}/${postFix}`,
+      date: dayjs(today).toDate(),
+    };
+    console.log(createLetter);
+    const letter = this.outLetter.create(createLetter);
+    console.log(letter);
+    return letter;
+    // return 'OK';
   }
 
   async findAll() {
