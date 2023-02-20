@@ -20,6 +20,15 @@ export class OutletterService {
     private readonly fileUploader: Model<FileUploaderDocument>,
   ) {}
 
+  async getDocumentsArray(createOutletterDto: CreateOutletterDto) {
+    console.log(createOutletterDto);
+    const { files, ...otherProps } = createOutletterDto;
+    const documents = files.map(
+      async (document) => await this.fileUploader.findById(document._id),
+    );
+    return Promise.all(documents);
+  }
+
   async getPreFix() {
     const startdate = dayjs().startOf('year').toISOString();
     const enddate = dayjs().endOf('year').toISOString();
@@ -53,15 +62,18 @@ export class OutletterService {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
     const count = await this.getPreFix();
-    const { files, ...otherProps } = createOutletterDto;
-    const documents: Array<FileUploaderDocument> = [];
-    files.forEach(async (document) => {
-      console.log(document._id);
-      console.log(isValidObjectId(document._id));
-      const doc = await this.fileUploader.findById(document._id).exec();
-      console.log(doc);
-      documents.push(doc);
-    });
+    console.log(createOutletterDto);
+    const documents = await this.getDocumentsArray(createOutletterDto);
+    // const { files, ...otherProps } = createOutletterDto;
+    // const documents: Array<FileUploaderDocument> = [];
+    // files.forEach(async (document) => {
+    //   console.log(document._id);
+    //   console.log(isValidObjectId(document._id));
+    //   const doc = await this.fileUploader.findById(document._id).exec();
+    //   console.log(doc);
+    //   documents.push(doc);
+    // });
+    // documents.forEach(d=> d.)
     console.log('aaa - ', documents);
     // const createLetter: CreateOutletterDto = {
     //   ...otherProps,
