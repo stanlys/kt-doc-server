@@ -65,16 +65,6 @@ export class OutletterService {
     console.log(createOutletterDto);
     const documents = await this.getDocumentsArray(createOutletterDto);
     const { files, ...otherProps } = createOutletterDto;
-    // const documents: Array<FileUploaderDocument> = [];
-    // files.forEach(async (document) => {
-    //   console.log(document._id);
-    //   console.log(isValidObjectId(document._id));
-    //   const doc = await this.fileUploader.findById(document._id).exec();
-    //   console.log(doc);
-    //   documents.push(doc);
-    // });
-    // documents.forEach(d=> d.)
-
     const createLetter: CreateOutletterDto = {
       ...otherProps,
       files: documents,
