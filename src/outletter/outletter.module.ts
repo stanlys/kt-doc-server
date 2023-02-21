@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { OutletterService } from './outletter.service';
 import { OutletterController } from './outletter.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,6 +7,7 @@ import {
   FileUploader,
   FileUploaderSchema,
 } from 'src/fileloader/schema/fileloader.schema';
+import { GetDocuments } from './outletter.middleware';
 
 @Module({
   imports: [
@@ -20,4 +21,8 @@ import {
   controllers: [OutletterController],
   providers: [OutletterService],
 })
-export class OutletterModule {}
+export class OutletterModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(GetDocuments).forRoutes('outletter');
+  }
+}
