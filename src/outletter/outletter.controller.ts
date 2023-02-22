@@ -22,6 +22,7 @@ export class OutletterController {
 
   @Post()
   create(@Body() createOutletterDto: CreateOutletterDto) {
+    console.log('Body:', createOutletterDto);
     return this.outletterService.create(createOutletterDto);
   }
 

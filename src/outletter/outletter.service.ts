@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseInterceptors } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as dayjs from 'dayjs';
 import { Model } from 'mongoose';
@@ -10,6 +10,7 @@ import {
   FileUploader,
   FileUploaderDocument,
 } from 'src/fileloader/schema/fileloader.schema';
+import { addTags } from './outletter.interceptor';
 
 @Injectable()
 export class OutletterService {
@@ -57,12 +58,12 @@ export class OutletterService {
   //   const letter = this.outLetter.create(createLetter);
   //   return letter;
   // }
-
+  @UseInterceptors()
   async create(createOutletterDto: CreateOutletterDto) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');
     const count = await this.getPreFix();
-    console.log(createOutletterDto);
+    console.log('IN  ', createOutletterDto);
     const documents = await this.getDocumentsArray(createOutletterDto);
     const { files, ...otherProps } = createOutletterDto;
     const createLetter: CreateOutletterDto = {
@@ -71,9 +72,7 @@ export class OutletterService {
       outNumber: `${count}/${postFix}`,
       date: dayjs(today).toDate(),
     };
-    console.log(createLetter);
     const letter = this.outLetter.create(createLetter);
-    console.log(letter);
     return letter;
     // return 'OK';
   }
