@@ -14,6 +14,7 @@ import { CreateOutletterDto } from './dto/create-outletter.dto';
 import { UpdateOutletterDto } from './dto/update-outletter.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { AddATags } from './outletter.decorator';
 
 @ApiTags('Работа с исходящими письмами')
 @Controller('outletter')

@@ -58,7 +58,7 @@ export class OutletterService {
   //   const letter = this.outLetter.create(createLetter);
   //   return letter;
   // }
-  @UseInterceptors()
+  //@UseInterceptors(addTags)
   async create(createOutletterDto: CreateOutletterDto) {
     const today = dayjs().toISOString();
     const postFix = dayjs().format('YY');

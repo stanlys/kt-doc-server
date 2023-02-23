@@ -10,10 +10,11 @@ import { Observable } from 'rxjs';
 export class addTags implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.switchToHttp().getRequest();
+    console.log('Interception');
     const { body, other } = req;
     const newBody = { ...body, dateOrder: 'ddddd' };
     req.body = newBody;
-    console.log('Interception');
+
     return next.handle().pipe(newBody);
   }
 }
